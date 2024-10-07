@@ -19,25 +19,9 @@ function drinkMachine() {
   let isConfirm = false;
   while (isConfirm === false) {
     let order = "";
-    let drink = prompt("Voulez vous du thé (1) ou du café (2) ? Choisissez l'une des deux options");
-    while (drink !== "1" && drink !== "2") {
-      drink = prompt("Je n'ai pas compris votre demande. Voulez vous du thé (1) ou du café (2) ? Choisissez l'une des deux options");
-    }
-    if (drink === "1") {
-      // order = order + "Thé, "
-      order += "Thé, ";
-    } else {
-      order += "Café, ";
-    }
-    let sugar = prompt("Voulez vous avec du sucre (1) ou sans sucre(2) ? Choisissez l'une des deux options");
-    while (sugar !== "1" && sugar !== "2") {
-      sugar = prompt("Je n'ai pas compris votre demande. Voulez vous avec du sucre (1) ou sans sucre(2) ? Choisissez l'une des deux options");
-    }
-    if (sugar === "1") {
-      order += "avec du sucre, ";
-    } else {
-      order += "sans sucre, ";
-    }
+    order += prepareOrder("du thé", "du café", "Thé ", "Café ");
+   
+   order += prepareOrder("du sucre", "sans sucre", "avec du sucre, ", "sans sucre, ");
     let milk = prompt("Voulez vous avec du lait (1) ou sans lait (2) ? Choisissez l'une des deux options");
     while (milk !== "1" && milk !== "2") {
       milk = prompt("Je n'ai pas compris votre demande. Voulez vous avec du lait (1) ou sans lait (2) ? Choisissez l'une des deux options");
@@ -55,9 +39,24 @@ function drinkMachine() {
     } else {
       order += "sans lait.";
     }
+   // order += prepareOrder("avec du lait", "sans lait", prepareOrder(" avec du lait végétal", "avec du lait de vache", " avec du lait végétal.", " avec du lait de vache"), "sans lait.")
     // biome-ignore lint/style/useTemplate: <explanation>
     isConfirm = confirm("Voici votre commande: " + order + " Souhaitez-vous confirmer cette commande ?");
   }
 }
 
 drinkMachine();
+
+function prepareOrder(firstOption, secondOption, firstChoice, secondChoice) {
+   let composition = prompt("Voulez vous " + firstOption + " (1) ou " + secondOption + " (2) ? Choisissez l'une des deux options");
+   while (composition !== "1" && composition !== "2") {
+      composition = prompt("Je n'ai pas compris votre demande. Voulez vous " + firstOption + " (1) ou " + secondOption + " (2) ? Choisissez l'une des deux options");
+   }
+   if (composition === "1") {
+      console.log(firstOption, composition);
+      
+      return firstChoice;
+   }
+   return secondChoice;
+}
+
